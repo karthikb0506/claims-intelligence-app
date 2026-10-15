@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Verdict {
+  SUPPORTED
+  PARTIALLY_SUPPORTED
+  NOT_SUPPORTED
+  INSUFFICIENT_EVIDENCE
+}
+
+model Claim {
+  id          String   @id @default(cuid())
+  productName String
+  // the exact wording being assessed, e.g. "Reduces wrinkles by 20% in 4 weeks"
+  wording     String
+  // claims are market specific, so an assessment is only valid for one market
+  market      String   @default("EU")
+  submittedBy String?
+  createdAt   DateTime @default(now())
+
+  assessments Assessment[]
+
+  // resubmitting the same wording for the same product and market should attach a
+  // new assessment to the existing claim, not create a duplicate claim
+  @@unique([productName, wording, market])
+  @@index([productName])
+  @@map("claims")
+}
+
+// Append only. Re-assessing a claim writes a new row rather than updating one,
+// because an older assessment may be the justification for a product already on sale.
+model Assessment {
+  id      String @id @default(cuid())
+  claimId String
+  claim   Claim  @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  // The evidence is stored with the assessment rather than referenced, because the
+  // verdict is only meaningful against these exact bytes. In production evidence would
+  // be its own table (see docs/decisions/0003) but the hash would still live here.
+  evidenceText String
+  evidenceHash String
+
+  verdict          Verdict
+  // the model's own number. Not calibrated, labelled as an opinion in the UI.
+  modelConfidence  Float
+  // 0-100, computed by the rule engine from study design facts. This is the trustworthy one.
+  evidenceStrength Int
+  reasoning        String
+  // only set when the evidence supports something weaker than what was claimed
+  suggestedClaim   String?
+
+  // Everything below exists so an assessment can be reconstructed years later.
+  extractedFacts Json
+  ruleFindings   Json
+  rawModelOutput Json
+  modelId        String
+  promptVersion  String
+  rulesVersion   String
+
+  // sha256 of claim + evidence + prompt + rules + model. Unique, so a retried request
+  // returns the existing row instead of paying for the model call twice.
+  fingerprint String   @unique
+  createdAt   DateTime @default(now())
+
+  @@index([claimId, createdAt])
+  @@map("assessments")
+}
