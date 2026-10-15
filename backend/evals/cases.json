@@ -1,0 +1,122 @@
+[
+  {
+    "name": "well designed study meets the claim",
+    "claim": { "metric": "wrinkle", "magnitudePercent": 20, "durationWeeks": 8, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 23,
+      "durationWeeks": 8,
+      "sampleSize": 90,
+      "hasControlGroup": true,
+      "pValue": 0.01,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "SUPPORTED"
+  },
+  {
+    "name": "claimed magnitude exceeds the measured effect",
+    "claim": { "metric": "wrinkle", "magnitudePercent": 20, "durationWeeks": 4, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 12,
+      "durationWeeks": 8,
+      "sampleSize": 30,
+      "hasControlGroup": false,
+      "pValue": 0.04,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "NOT_SUPPORTED"
+  },
+  {
+    "name": "study does not measure the claimed metric",
+    "claim": { "metric": "wrinkle", "magnitudePercent": 20, "durationWeeks": 4, "population": null },
+    "study": {
+      "measuresClaimedMetric": false,
+      "effectPercent": 40,
+      "durationWeeks": 4,
+      "sampleSize": 120,
+      "hasControlGroup": true,
+      "pValue": 0.001,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "INSUFFICIENT_EVIDENCE"
+  },
+  {
+    "name": "no effect size reported",
+    "claim": { "metric": "hydration", "magnitudePercent": 30, "durationWeeks": 2, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": null,
+      "durationWeeks": 2,
+      "sampleSize": 70,
+      "hasControlGroup": true,
+      "pValue": 0.02,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "INSUFFICIENT_EVIDENCE"
+  },
+  {
+    "name": "numbers met but the timeframe does not match",
+    "claim": { "metric": "wrinkle", "magnitudePercent": 15, "durationWeeks": 4, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 18,
+      "durationWeeks": 12,
+      "sampleSize": 80,
+      "hasControlGroup": true,
+      "pValue": 0.01,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "PARTIALLY_SUPPORTED"
+  },
+  {
+    "name": "numbers met but the study design is weak",
+    "claim": { "metric": "firmness", "magnitudePercent": 10, "durationWeeks": 6, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 14,
+      "durationWeeks": 6,
+      "sampleSize": 22,
+      "hasControlGroup": false,
+      "pValue": 0.03,
+      "measurementMethod": "self-assessment",
+      "citations": []
+    },
+    "expected": "PARTIALLY_SUPPORTED"
+  },
+  {
+    "name": "result is not statistically significant",
+    "claim": { "metric": "dark spot", "magnitudePercent": 10, "durationWeeks": 8, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 11,
+      "durationWeeks": 8,
+      "sampleSize": 80,
+      "hasControlGroup": true,
+      "pValue": 0.18,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "NOT_SUPPORTED"
+  },
+  {
+    "name": "qualitative claim with a sound study",
+    "claim": { "metric": "hydration", "magnitudePercent": null, "durationWeeks": null, "population": null },
+    "study": {
+      "measuresClaimedMetric": true,
+      "effectPercent": 6,
+      "durationWeeks": 4,
+      "sampleSize": 65,
+      "hasControlGroup": true,
+      "pValue": 0.02,
+      "measurementMethod": "instrumental",
+      "citations": []
+    },
+    "expected": "SUPPORTED"
+  }
+]
