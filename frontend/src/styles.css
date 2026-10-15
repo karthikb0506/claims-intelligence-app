@@ -1,0 +1,291 @@
+:root {
+  --border: #d9d9de;
+  --muted: #5f6368;
+  --bg: #fafafa;
+  --pass: #1e7d4f;
+  --warn: #9a6b00;
+  --fail: #b3261e;
+  --unknown: #5f6368;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #1a1a1a;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0.4rem 0 1.75rem;
+}
+
+h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 1.75rem 0 0.5rem;
+}
+
+.samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.samples button {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.samples button:hover {
+  border-color: #999;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+  font-size: 0.8125rem;
+}
+
+form > button {
+  justify-self: start;
+  padding: 0.6rem 1.4rem;
+  border: 0;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+form > button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.error {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--fail);
+  background: #fdf2f1;
+  color: var(--fail);
+}
+
+.result {
+  margin-top: 2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.verdict {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+}
+
+.verdict.yes {
+  background: #eef7f1;
+  border-left: 4px solid var(--pass);
+}
+
+.verdict.no {
+  background: #fdf2f1;
+  border-left: 4px solid var(--fail);
+}
+
+.verdict-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.verdict strong {
+  font-size: 1.75rem;
+}
+
+.verdict-detail {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.score {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.score-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.score strong {
+  font-size: 1.3rem;
+}
+
+.score-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.suggestion {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  background: #f5f7fb;
+  border-left: 3px solid #3b5bdb;
+  border-radius: 0 6px 6px 0;
+}
+
+.suggestion h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.suggestion p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.findings,
+.citations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.finding {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.finding p {
+  margin: 0.15rem 0 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.finding .status {
+  flex: 0 0 4.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding-top: 0.15rem;
+}
+
+.finding.pass .status {
+  color: var(--pass);
+}
+.finding.warn .status {
+  color: var(--warn);
+}
+.finding.fail .status {
+  color: var(--fail);
+}
+.finding.unknown .status {
+  color: var(--unknown);
+}
+
+.citations li {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.citations .field {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.provenance {
+  margin-top: 1.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+  word-break: break-word;
+}
